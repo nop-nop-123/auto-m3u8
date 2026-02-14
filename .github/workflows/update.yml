@@ -14,7 +14,7 @@ jobs:
 
       - name: Fetch m3u8
         run: |
-          curl -shttps://p0.cdn.vet/live/ch3/i/ch3i.m3u8?sid=b5yYTk0OTIwNTIzNDU1Mzg4ODczMQNzExN2JlODIzNWEzNGU4 > latest.txt
+          curl -s https://p0.cdn.vet/live/ch3/i/ch3i.m3u8?sid=b5yYTk0OTIwNTIzNDU1Mzg4ODczMQNzExN2JlODIzNWEzNGU4 > latest.txt
 
       - name: Commit update
         run: |
