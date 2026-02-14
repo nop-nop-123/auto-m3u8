@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+<video id="video" controls autoplay width="640"></video>
+
+<script>
+fetch("latest.txt")
+.then(r=>r.text())
+.then(url=>{
+
+  const video=document.getElementById('video')
+
+  if(Hls.isSupported()){
+    const hls=new Hls()
+    hls.loadSource(url.trim())
+    hls.attachMedia(video)
+  }else{
+    video.src=url.trim()
+  }
+})
+</script>
+
+</body>
+</html>
