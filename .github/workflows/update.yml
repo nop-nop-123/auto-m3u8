@@ -1,0 +1,25 @@
+name: Auto Fetch Stream
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # ทุก 5 นาที
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Fetch m3u8
+        run: |
+          curl -s https://YOUR_SOURCE_URL > latest.txt
+
+      - name: Commit update
+        run: |
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add latest.txt
+          git commit -m "update stream" || exit 0
+          git push
