@@ -1,33 +1,7 @@
-name: Auto Fetch Stream
+- name: Write playlist
+  run: |
+    echo "#EXTM3U" > stream.m3u8
+    echo '#EXTINF:-1 tvg-name="Test",Test Channel' >> stream.m3u8
+    echo "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" >> stream.m3u8
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
-
-jobs:
-  fetch:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Fetch m3u8
-        run: |
-          URL="https://p0.cdn.vet/live/ch3/i/ch3i.m3u8"
-
-          curl -L \
-            -H "User-Agent: Mozilla/5.0" \
-            -H "Referer: https://ch3plus.com/" \
-            "$URL" \
-            -o stream.m3u8 || echo "#FAILED" > stream.m3u8
-
-      - name: Commit
-        run: |
-          git config --global user.name "bot"
-          git config --global user.email "bot@users.noreply.github.com"
-          git add stream.m3u8
-          git commit -m "update stream" || echo "no change"
-          git push
 
